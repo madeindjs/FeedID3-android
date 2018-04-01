@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.AdapterView;
 
 import com.rousseau_alexandre.feedid3.R;
 import com.rousseau_alexandre.feedid3.models.ImportedMp3File;
@@ -21,6 +21,8 @@ import com.rousseau_alexandre.feedid3.models.ImportedMp3FileAdapter;
 public class MainActivity extends AppCompatActivity {
 
     private static final int READ_REQUEST_CODE = 42;
+    public static final String EXTRA_MESSAGE = "com.github.madeindjs.feedide3-android.FILE_ID";
+
 
     protected ListViewImportedMp3Files list;
 
@@ -34,6 +36,16 @@ public class MainActivity extends AppCompatActivity {
 
         list = (ListViewImportedMp3Files) findViewById(R.id.listFilesImported);
         list.loadData(MainActivity.this);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ImportedMp3File scrawler = (ImportedMp3File) list.getItemAtPosition(position);
+                Intent intent = new Intent(MainActivity.this, ImportedMp3FileActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, scrawler);
+                startActivity(intent);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
