@@ -1,4 +1,4 @@
-package com.rousseau_alexandre.feedid3;
+package com.rousseau_alexandre.feedid3.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,9 +14,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.rousseau_alexandre.feedid3.R;
+import com.rousseau_alexandre.feedid3.models.ImportedMp3File;
+import com.rousseau_alexandre.feedid3.models.ImportedMp3FileAdapter;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int READ_REQUEST_CODE = 42;
+
+    protected ListViewImportedMp3Files list;
 
 
     @Override
@@ -25,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        list = (ListViewImportedMp3Files) findViewById(R.id.listFilesImported);
+        list.loadData(MainActivity.this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -88,9 +97,25 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = null;
             if (resultData != null) {
                 uri = resultData.getData();
+
+                ImportedMp3File file = new ImportedMp3File(uri.getPath());
+                file.insert(MainActivity.this);
+
+
                 Log.i("az", "Uri: " + uri.getPath());
             }
         }
+    }
+
+    /**
+     * Reload list view on back pressed
+     */
+    @Override
+    protected void onResume(){
+        super.onResume();
+        ImportedMp3FileAdapter adapter = (ImportedMp3FileAdapter) list.getAdapter();
+        adapter.reload();
+        System.out.println("onResume called");
     }
 
 
