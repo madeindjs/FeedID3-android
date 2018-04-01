@@ -8,7 +8,7 @@
     tools:context=".activities.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <com.rousseau_alexandre.feedid3.activities.ListViewImportedMp3Files
+    <com.rousseau_alexandre.feedid3.activities.ListViewImportedFiles
         android:id="@+id/listFilesImported"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

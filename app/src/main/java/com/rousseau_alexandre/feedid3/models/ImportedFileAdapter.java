@@ -16,11 +16,11 @@ import com.rousseau_alexandre.feedid3.R;
  * https://github.com/florent37/TutosAndroidFrance/tree/master/ListViewSample
  * http://tutos-android-france.com/listview-afficher-une-liste-delements/
  */
-public class ImportedMp3FileAdapter extends ArrayAdapter<ImportedMp3File> {
+public class ImportedFileAdapter extends ArrayAdapter<ImportedFile> {
 
 
-    public ImportedMp3FileAdapter(Context context) {
-        super(context, 0, ImportedMp3File.all(context));
+    public ImportedFileAdapter(Context context) {
+        super(context, 0, ImportedFile.all(context));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ImportedMp3FileAdapter extends ArrayAdapter<ImportedMp3File> {
         }
 
         // `getItem(position)` will get item's position of `List<Tweet>`
-        ImportedMp3File file = getItem(position);
+        ImportedFile file = getItem(position);
 
         // then we fill the view
         viewHolder.path.setText(file.getPath());
@@ -49,7 +49,7 @@ public class ImportedMp3FileAdapter extends ArrayAdapter<ImportedMp3File> {
 
     public void reload() {
         clear();
-        addAll(ImportedMp3File.all(getContext()));
+        addAll(ImportedFile.all(getContext()));
         notifyDataSetChanged();
     }
 

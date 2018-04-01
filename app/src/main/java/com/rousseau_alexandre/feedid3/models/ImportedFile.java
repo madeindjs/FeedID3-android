@@ -9,9 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImportedMp3File extends Record {
+public class ImportedFile extends Record {
 
-    public static final String TABLE_NAME = "files";
+    public static final String TABLE_NAME = "imported_files";
     public static final String DATABASE_CREATE = "CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, path TEXT NOT NULL);";
 
     private long id;
@@ -25,7 +25,7 @@ public class ImportedMp3File extends Record {
         return TABLE_NAME;
     }
 
-    public ImportedMp3File(String path) {
+    public ImportedFile(String path) {
         this.path = path;
     }
 
@@ -34,7 +34,7 @@ public class ImportedMp3File extends Record {
      *
      * @param cursor
      */
-    public ImportedMp3File(Cursor cursor) {
+    public ImportedFile(Cursor cursor) {
         id = cursor.getLong(0);
         path = cursor.getString(1);
     }
@@ -43,14 +43,14 @@ public class ImportedMp3File extends Record {
         return path;
     }
 
-    public static List<ImportedMp3File> all(Context context) {
+    public static List<ImportedFile> all(Context context) {
         SQLiteDatabase db = getDatabase(context);
         Cursor cursor = db.rawQuery("SELECT id, path FROM " + TABLE_NAME, null);
 
-        List<ImportedMp3File> files = new ArrayList<>();
+        List<ImportedFile> files = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            files.add(new ImportedMp3File(cursor));
+            files.add(new ImportedFile(cursor));
             cursor.moveToNext();
         }
         cursor.close();
@@ -59,14 +59,14 @@ public class ImportedMp3File extends Record {
         return files;
     }
 
-    public static ImportedMp3File get(Context context, long id) {
+    public static ImportedFile get(Context context, long id) {
         Cursor cursor = getDatabase(context).rawQuery(
                 String.format("SELECT id, path FROM %s WHERE id = ?", TABLE_NAME),
                 new String[]{Long.toString(id)}
         );
         cursor.moveToFirst();
 
-        return new ImportedMp3File(cursor);
+        return new ImportedFile(cursor);
     }
     protected ContentValues toContentValues() {
         ContentValues values = new ContentValues();

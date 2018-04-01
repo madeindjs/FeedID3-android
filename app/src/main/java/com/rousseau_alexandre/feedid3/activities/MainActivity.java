@@ -15,8 +15,8 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 
 import com.rousseau_alexandre.feedid3.R;
-import com.rousseau_alexandre.feedid3.models.ImportedMp3File;
-import com.rousseau_alexandre.feedid3.models.ImportedMp3FileAdapter;
+import com.rousseau_alexandre.feedid3.models.ImportedFile;
+import com.rousseau_alexandre.feedid3.models.ImportedFileAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.github.madeindjs.feedide3-android.FILE_ID";
 
 
-    protected ListViewImportedMp3Files list;
+    protected ListViewImportedFiles list;
 
 
     @Override
@@ -34,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        list = (ListViewImportedMp3Files) findViewById(R.id.listFilesImported);
+        list = (ListViewImportedFiles) findViewById(R.id.listFilesImported);
         list.loadData(MainActivity.this);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ImportedMp3File scrawler = (ImportedMp3File) list.getItemAtPosition(position);
-                Intent intent = new Intent(MainActivity.this, ImportedMp3FileActivity.class);
+                ImportedFile scrawler = (ImportedFile) list.getItemAtPosition(position);
+                Intent intent = new Intent(MainActivity.this, ImportedFileActivity.class);
                 intent.putExtra(EXTRA_MESSAGE, scrawler);
                 startActivity(intent);
             }
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             if (resultData != null) {
                 uri = resultData.getData();
 
-                ImportedMp3File file = new ImportedMp3File(uri.getPath());
+                ImportedFile file = new ImportedFile(uri.getPath());
                 file.insert(MainActivity.this);
 
 
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        ImportedMp3FileAdapter adapter = (ImportedMp3FileAdapter) list.getAdapter();
+        ImportedFileAdapter adapter = (ImportedFileAdapter) list.getAdapter();
         adapter.reload();
         System.out.println("onResume called");
     }

@@ -5,12 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.rousseau_alexandre.feedid3.activities.ListViewImportedMp3Files;
-
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "feedid3.sqlite";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     /**
      * SQL Query to create database
@@ -21,7 +19,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL(ImportedMp3File.DATABASE_CREATE);
+        database.execSQL(ImportedFile.DATABASE_CREATE);
     }
 
     @Override
@@ -33,7 +31,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                         oldVersion, newVersion
                 )
         );
-        db.execSQL("DROP TABLE IF EXISTS " + ImportedMp3File.TABLE_NAME );
+        db.execSQL("DROP TABLE IF EXISTS " + ImportedFile.TABLE_NAME );
         onCreate(db);
     }
 }

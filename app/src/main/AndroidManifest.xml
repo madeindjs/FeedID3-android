@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ImportedMp3FileActivity"
+            android:name=".activities.ImportedFileActivity"
             android:label="@string/title_activity_imported_mp3_file"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

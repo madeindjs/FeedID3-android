@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.rousseau_alexandre.feedid3.R;
 
-public class ImportedMp3FileActivity extends AppCompatActivity {
+public class ImportedFileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
