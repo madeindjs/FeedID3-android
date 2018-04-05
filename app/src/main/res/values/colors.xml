@@ -5,8 +5,8 @@
     <color name="colorAccent">#FF4081</color>
 
     <!-- from https://flatuicolors.com/palette/us -->
-    <color name='lightGreen'>#81ecec</color>
-    <color name='darkGreen'>#00b894</color>
-    <color name='lightRed'>#fab1a0</color>
-    <color name='darkRed'>#d63031</color>
+    <color name='lightGreen'>#BDD2A8</color>
+    <color name='darkGreen'>#73D216</color>
+    <color name='lightRed'>#CCA3A3</color>
+    <color name='darkRed'>#CC0000</color>
 </resources>

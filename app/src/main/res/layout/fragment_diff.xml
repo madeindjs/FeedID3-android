@@ -1,0 +1,37 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rousseau_alexandre.feedid3.DiffFragment">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/before_button_background"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="left"
+            android:padding="4dp"
+            android:text="@string/id3_artist_bad" />
+
+        <RadioButton
+            android:id="@+id/after"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/after_button_background"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="right"
+            android:padding="4dp"
+            android:text="@string/id3_artist_good" />
+    </RadioGroup>
+
+</FrameLayout>
