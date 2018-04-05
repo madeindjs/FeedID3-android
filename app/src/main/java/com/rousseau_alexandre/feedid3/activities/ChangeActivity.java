@@ -1,6 +1,5 @@
 package com.rousseau_alexandre.feedid3.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,12 +9,12 @@ import android.view.View;
 
 import com.rousseau_alexandre.feedid3.R;
 
-public class ImportedFileActivity extends AppCompatActivity {
+public class ChangeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_imported_mp3_file);
+        setContentView(R.layout.activity_change);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -23,9 +22,8 @@ public class ImportedFileActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ImportedFileActivity.this, ChangeActivity.class);
-                intent.putExtra(MainActivity.EXTRA_MESSAGE, "");
-                startActivity(intent);
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
     }

@@ -16,4 +16,11 @@
         completions."
     </string>
     <string name="title_activity_imported_mp3_file">ImportedMp3File</string>
+    <string name="title_activity_change">ChangeActivity</string>
+    <string name="id3_artist">Artist</string>
+    <string name="id3_artist_bad">red pill and l orange</string>
+    <string name="id3_artist_good">Red Pill and L\'Orange</string>
+    <string name="id3_album">Album</string>
+    <string name="id3_genre">Genre</string>
+    <string name="id3_title">Title</string>
 </resources>

@@ -22,6 +22,10 @@
         <activity
             android:name=".activities.ImportedFileActivity"
             android:label="@string/title_activity_imported_mp3_file"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ChangeActivity"
+            android:label="@string/title_activity_change"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

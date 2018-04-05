@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ImportedFile scrawler = (ImportedFile) list.getItemAtPosition(position);
+                ImportedFile file = (ImportedFile) list.getItemAtPosition(position);
                 Intent intent = new Intent(MainActivity.this, ImportedFileActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, scrawler);
+                intent.putExtra(EXTRA_MESSAGE, file);
                 startActivity(intent);
             }
         });
