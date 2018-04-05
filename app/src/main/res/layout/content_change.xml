@@ -11,7 +11,6 @@
     tools:showIn="@layout/activity_change">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/id3_artist"
@@ -19,18 +18,35 @@
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radioArtistBefore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/before_button_background"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="left"
             android:text="@string/id3_artist_bad" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioArtistAfter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/after_button_background"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="right"
             android:text="@string/id3_artist_good" />
+
+
     </RadioGroup>
+
+
+
+
 </LinearLayout>
