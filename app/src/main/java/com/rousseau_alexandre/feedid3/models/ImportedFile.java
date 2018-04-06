@@ -6,6 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 
+import com.github.madeindjs.feedID3.MyMp3File;
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +24,7 @@ public class ImportedFile extends Record {
 
     /**
      * Dirty truck to get table name in child class
+     *
      * @return
      */
     protected String getTableName() {
@@ -41,6 +47,10 @@ public class ImportedFile extends Record {
 
     public String getPath() {
         return path;
+    }
+
+    public MyMp3File getMyMp3File() throws IOException, UnsupportedTagException, InvalidDataException {
+        return new MyMp3File(this.path);
     }
 
     public static List<ImportedFile> all(Context context) {
@@ -68,12 +78,12 @@ public class ImportedFile extends Record {
 
         return new ImportedFile(cursor);
     }
+
     protected ContentValues toContentValues() {
         ContentValues values = new ContentValues();
         values.put("path", path);
         return values;
     }
-
 
 
 }
