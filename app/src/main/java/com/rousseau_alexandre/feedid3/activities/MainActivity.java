@@ -112,9 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
                 ImportedFile file = new ImportedFile(uri.getPath());
                 file.insert(MainActivity.this);
-
-
-                Log.i("az", "Uri: " + uri.getPath());
             }
         }
     }
