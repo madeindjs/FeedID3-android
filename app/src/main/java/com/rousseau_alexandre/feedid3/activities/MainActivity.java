@@ -18,6 +18,9 @@ import com.rousseau_alexandre.feedid3.R;
 import com.rousseau_alexandre.feedid3.models.ImportedFile;
 import com.rousseau_alexandre.feedid3.models.ImportedFileAdapter;
 
+import java.io.File;
+import java.net.URI;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int READ_REQUEST_CODE = 42;
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file browser.
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 // Filter to show only images, using the image MIME data type. If one wanted to
                 // search for ogg vorbis files, the type would be "audio/ogg". To search for all
                 // documents available via installed storage providers, it would be "*/*".
@@ -96,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-
         // The ACTION_OPEN_DOCUMENT intent was sent with the request code
         // READ_REQUEST_CODE. If the request code seen here doesn't match, it's the
         // response to some other intent, and the code below shouldn't run at all.
@@ -106,13 +108,23 @@ public class MainActivity extends AppCompatActivity {
             // Instead, a URI to that document will be contained in the return intent
             // provided to this method as a parameter.
             // Pull that URI using resultData.getData().
-            Uri uri = null;
             if (resultData != null) {
-                uri = resultData.getData();
+                Uri uri = resultData.getData();
 
-                ImportedFile file = new ImportedFile(uri.getPath());
+                String path = uri.toString();
+                if (path.toLowerCase().startsWith("file://")) {
+                    path = (new File(URI.create(path))).getAbsolutePath();
+                } else {
+                    // not a valid file selected
+                    // @see: https://stackoverflow.com/questions/20067508/get-real-path-from-uri-android-kitkat-new-storage-access-framework
+                    // @see: https://stackoverflow.com/questions/19834842/android-gallery-on-android-4-4-kitkat-returns-different-uri-for-intent-action
+                }
+                ImportedFile file = new ImportedFile(path);
                 file.insert(MainActivity.this);
+
             }
+        } else {
+            // Back from pick with cancel status
         }
     }
 
