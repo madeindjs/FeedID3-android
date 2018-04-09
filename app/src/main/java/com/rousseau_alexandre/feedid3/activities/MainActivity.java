@@ -1,11 +1,16 @@
 package com.rousseau_alexandre.feedid3.activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -49,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 if (path.toLowerCase().startsWith("file://")) {
                     path = (new File(URI.create(path))).getAbsolutePath();
                 } else {
+                    path = this.getAudioPath(uri);
                     // not a valid file selected
                     // @see: https://stackoverflow.com/questions/20067508/get-real-path-from-uri-android-kitkat-new-storage-access-framework
                     // @see: https://stackoverflow.com/questions/19834842/android-gallery-on-android-4-4-kitkat-returns-different-uri-for-intent-action
@@ -129,6 +139,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * @see https://stackoverflow.com/questions/20067508/get-real-path-from-uri-android-kitkat-new-storage-access-framework
+     * @param uri
+     * @return
+     */
+    public String getAudioPath(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String documentId = cursor.getString(0);
+        documentId = documentId.substring(documentId.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = getContentResolver().query(
+                android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Audio.Media._ID + " = ? ", new String[]{documentId}, null);
+        cursor.moveToFirst();
+        int count = cursor.getColumnCount();
+        int index = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+        String path = cursor.getString(index);
+        cursor.close();
+
+        return path;
+    }
+
+    /**
      * Reload list view on back pressed
      */
     @Override
@@ -137,6 +171,31 @@ public class MainActivity extends AppCompatActivity {
         ImportedFileAdapter adapter = (ImportedFileAdapter) list.getAdapter();
         adapter.reload();
         System.out.println("onResume called");
+    }
+
+    /**
+     * @see https://stackoverflow.com/questions/32431723/read-external-storage-permission-for-android#32617585
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted and now can proceed
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    View parentLayout = findViewById(android.R.id.content);
+                    Snackbar.make(parentLayout, "Permission denied to read your External storage", Snackbar.LENGTH_LONG).show();
+                }
+                return;
+            }
+            // add other cases for more permissions
+        }
     }
 
 
