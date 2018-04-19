@@ -35,6 +35,11 @@
 
     <string name="no_artist">No artist</string>
 
+    <string name="credits">Credits</string>
+    <string name="credits_content_artist"><a href="https://thenounproject.com/term/artist/368426">"artist"</a> by Gregor Cresnar from <a href="https://thenounproject.com">the Noun Project</a></string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_credits">CreditsActivity</string>
 </resources>
