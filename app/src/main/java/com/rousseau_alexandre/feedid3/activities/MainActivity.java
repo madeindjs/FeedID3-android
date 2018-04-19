@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,11 +14,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.provider.MediaStore.Audio.Media;
 
 import com.rousseau_alexandre.feedid3.R;
 import com.rousseau_alexandre.feedid3.models.ImportedFile;
@@ -150,16 +151,31 @@ public class MainActivity extends AppCompatActivity {
         documentId = documentId.substring(documentId.lastIndexOf(":") + 1);
         cursor.close();
 
-        cursor = getContentResolver().query(
-                android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                null, MediaStore.Audio.Media._ID + " = ? ", new String[]{documentId}, null);
-        cursor.moveToFirst();
-        int count = cursor.getColumnCount();
-        int index = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
-        String path = cursor.getString(index);
-        cursor.close();
 
-        return path;
+        final String[] projection = {MediaStore.Audio.Media.DATA};
+        final String selection = MediaStore.Audio.Media._ID + " = ? ";
+        final String[] params = {documentId};
+
+        {
+            cursor = getContentResolver().query(
+                    Media.EXTERNAL_CONTENT_URI,
+                    projection, selection, params, null
+            );
+            cursor.moveToFirst();
+
+            try {
+                int index = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+                String path = cursor.getString(index);
+
+                return path;
+            } catch (CursorIndexOutOfBoundsException e) {
+            } finally {
+                cursor.close();
+            }
+        }
+
+
+        return documentId;
     }
 
     /**
