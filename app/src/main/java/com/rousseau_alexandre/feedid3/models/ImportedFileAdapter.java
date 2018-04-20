@@ -83,28 +83,24 @@ public class ImportedFileAdapter extends ArrayAdapter<ImportedFile> {
         }
 
         public void setUpBadges() {
-            try{
-                ID3v1 id3 =file.getMyMp3File().getCurrentID3();
+            ID3v1 id3 =file.getMyMp3File().getCurrentID3();
 
-                if(id3.getArtist() != null && !id3.getArtist().isEmpty()) {
-                    badgeNoArtist.setVisibility(View.INVISIBLE);
-                }
-
-                if(id3.getAlbum() != null && !id3.getAlbum().isEmpty()) {
-                    badgeNoAlbum.setVisibility(View.INVISIBLE);
-                }
-
-                if(id3.getYear() != null && !id3.getYear().isEmpty()) {
-                    badgeNoYear.setVisibility(View.INVISIBLE);
-                }
-
-                if(id3.getGenreDescription() != null && !id3.getGenreDescription().isEmpty()) {
-                    badgeNoGenre.setVisibility(View.INVISIBLE);
-                }
-
-            }catch(IOException | UnsupportedTagException | InvalidDataException e) {
-
+            if(id3.getArtist() != null && !id3.getArtist().isEmpty()) {
+                badgeNoArtist.setVisibility(View.INVISIBLE);
             }
+
+            if(id3.getAlbum() != null && !id3.getAlbum().isEmpty()) {
+                badgeNoAlbum.setVisibility(View.INVISIBLE);
+            }
+
+            if(id3.getYear() != null && !id3.getYear().isEmpty()) {
+                badgeNoYear.setVisibility(View.INVISIBLE);
+            }
+
+            if(id3.getGenreDescription() != null && !id3.getGenreDescription().isEmpty()) {
+                badgeNoGenre.setVisibility(View.INVISIBLE);
+            }
+
 
             path.setText(file.getPath());
         }

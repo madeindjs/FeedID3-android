@@ -49,8 +49,12 @@ public class ImportedFile extends Record {
         return path;
     }
 
-    public MyMp3File getMyMp3File() throws IOException, UnsupportedTagException, InvalidDataException {
-        return new MyMp3File(this.path);
+    public MyMp3File getMyMp3File(){
+        try{
+            return new MyMp3File(this.path);
+        }catch(IOException | UnsupportedTagException | InvalidDataException e){
+            return null;
+        }
     }
 
     public static List<ImportedFile> all(Context context) {
